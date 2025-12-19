@@ -1,0 +1,46 @@
+name: fetch
+
+on:
+  workflow_dispatch:
+    inputs:
+      new:
+        description: '0:fill or 1:renew ?'
+        required: true
+        default: '0'
+      exp:
+        description: 'exp: 0 or 1 ?'
+        required: true
+        default: '0'
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: public
+      uses: actions/checkout@v4
+    - name: private
+      run: git clone --depth 1 ${{ secrets.R_URL }} origin
+    - name: Setup python
+      uses: actions/setup-python@master
+      with:
+       python-version: '3.11'
+    - name: require
+      run: cd origin && pip install -r requirements.txt
+    - name: fetch
+      run: cd origin && python ss.py ${{github.event.inputs.new}} ${{ github.event.inputs.exp}}
+    - name: Commit & push
+      run: |
+        cd origin
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add .
+        git commit -m "Updated from public" || echo "No changes to commit"
+        git push origin main
+    - name: Delete workflow runs
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
+        token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        retain_days: 1
+        keep_minimum_runs: 1
