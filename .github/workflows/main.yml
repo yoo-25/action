@@ -36,7 +36,7 @@ jobs:
         git config user.email "github-actions@github.com"
         git add .
         git commit -m "Updated from public" || echo "No changes to commit"
-        git push origin main > /dev/null
+        git push origin main > /dev/null 2>&1 && echo "Push done!"
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
       with:
