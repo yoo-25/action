@@ -14,7 +14,7 @@ on:
 
 concurrency:
   group: ${{ github.repository }}
-  cancel-in-progress: false # false 等待上一个跑完
+  cancel-in-progress: false # 等待运行跑完
 
 jobs:
   fetch:
