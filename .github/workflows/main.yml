@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: public
       uses: actions/checkout@v4
-    - name: private
+    - name: origin
       run: git clone --depth 1 ${{ secrets.REPO_URL }} origin
     - name: Setup python
       uses: actions/setup-python@master
