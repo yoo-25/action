@@ -39,7 +39,7 @@ jobs:
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
         git add .
-        git commit -am "Update from public $(TZ='Asia/Shanghai' date '+%D %T')" || echo "No changes"
+        git commit -am "Update from yoo-25/action $(TZ='Asia/Shanghai' date '+%D %T')" || echo "No changes"
         git push origin main > /dev/null 2>&1 && echo "Push done!"
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
