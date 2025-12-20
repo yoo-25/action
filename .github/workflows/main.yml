@@ -12,6 +12,10 @@ on:
         required: true
         default: '0'
 
+concurrency:
+  group: ${{ github.repository }}
+  cancel-in-progress: false # false 等待上一个跑完
+
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -35,7 +39,7 @@ jobs:
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
         git add .
-        git commit -m "Updated from public" || echo "No changes to commit"
+        git commit -am "Update from public $(TZ='Asia/Shanghai' date '+%Y/%m/%d %T')" || echo "No changes"
         git push origin main > /dev/null 2>&1 && echo "Push done!"
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
