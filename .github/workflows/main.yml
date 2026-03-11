@@ -29,8 +29,9 @@ jobs:
       uses: actions/setup-python@master
       with:
        python-version: '3.11'
+       cache: pip
     - name: require
-      run: cd origin && pip install -r requirements.txt
+      run: cd origin && pip install -r requirements.txt --prefer-binary
     - name: fetch
       run: cd origin && python ss.py ${{github.event.inputs.new}} ${{ github.event.inputs.exp}}
     - name: Commit & push
