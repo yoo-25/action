@@ -43,7 +43,7 @@ jobs:
         git commit -am "Update from ${{ github.repository }} $(TZ='Asia/Shanghai' date '+%D %T')" || echo "No changes"
         git push origin main > /dev/null 2>&1 && echo "Push done!"
     - name: Delete workflow runs
-      uses: peter-evans/delete-workflow-runs@v2
+      uses: Mattraks/delete-workflow-runs@v2
       with:
         token: ${{ github.token }}
         repository: ${{ github.repository }}
